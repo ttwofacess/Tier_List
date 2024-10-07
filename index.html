@@ -130,9 +130,49 @@
             display: flex;
             flex-wrap: wrap;
 
-            
+            &.drag-files {
+                background: #555;
+                border-style: dashed;
+            }
+        }
+
+        .item-image {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            background: #fff;
+            cursor: grab;
+
+            &.drag-preview {
+                opacity: .5;
+                pointer-events: none;
+            }
         }
     </style>
+
+    <script type="module">
+        const $ = el => document.querySelector(el);
+        const $$ = el => document.querySelectorAll(el);
+
+        const imageInput = $('#image-input');
+        const itemsSection = $('#selector-items');
+        const resetButton = $('#reset-tier-button');
+        const saveButton = $('#save-tier-button');
+
+        function createItem(src) {
+            const imgElement = document.createElement('img');
+            imgElement.draggable = true;
+            imgElement.src = src;
+            imgElement.className = 'item-image';
+
+            imgElement.addEventListener('dragstart', handleDragStart);
+            imgElement.addEventListener('dragend', handleDragEnd);
+
+            itemsSection.appendChild(imgElement);
+            return imgElement;
+        }
+    </script>
+
 </head>
 <body>
     <header id="top-header">
