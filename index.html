@@ -185,6 +185,29 @@
                 });
             }
         }
+
+        imageInput.addEventListener('change', (event) => {
+            const { files } = event.target;
+            useFilesToCreateItems(files);
+        });
+
+        let draggedElement = null;
+        let sourceContainer = null;
+
+        const rows = $$('.tier .row');
+
+        rows.forEach(row => {
+            row.addEventListener('dragover', handleDragOver);
+            row.addEventListener('drop', handleDrop);
+            row.addEventListener('dragleave', handleDragLeave);
+        });
+
+        itemsSection.addEventListener('dragover', handleDragOver);
+        itemsSection.addEventListener('drop', handleDrop);
+        itemsSection.addEventListener('dragleave', handleDragLeave);
+
+        itemsSection.addEventListener('drop', handleDropFromDesktop);
+        itemsSection.addEventListener('dragover', handleDragOverFromDesktop);
     </script>
 
 </head>
