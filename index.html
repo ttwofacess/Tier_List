@@ -208,6 +208,16 @@
 
         itemsSection.addEventListener('drop', handleDropFromDesktop);
         itemsSection.addEventListener('dragover', handleDragOverFromDesktop);
+
+        function handleDragOverFromDesktop(event) {
+            event.preventDefault();
+
+            const { currentTarget, dataTransfer } = event;
+
+            if(dataTransfer.types.includes('Files')) {
+                currentTarget.classList.add('drag-files');
+            }
+        }
     </script>
 
 </head>
