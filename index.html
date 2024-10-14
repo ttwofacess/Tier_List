@@ -230,6 +230,25 @@
                 useFilesToCreateItems(files);
             }
         }
+
+        function handleDrop(event) {
+            event.preventDefault();
+
+            const { currentTarget, dataTransfer } = event;
+
+            if(sourceContainer && draggedElement) {
+                sourceContainer.removeChild(draggedElement);
+            }
+
+            if(draggedElement) {
+                const src = dataTransfer.getData('text/plain');
+                const imgElement = createItem(src);
+                currentTarget.appendChild(imgElement);
+            }
+
+            currentTarget.classList.remove('drag-over');
+            currentTarget.querySelector('.drag-preview')?.remove();
+        }
     </script>
 
 </head>
