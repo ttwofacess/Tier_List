@@ -275,7 +275,11 @@
             currentTarget.querySelector('.drag-preview')?.remove();
         }
 
-        
+        function handleDragStart(event) {
+            draggedElement = event.target;
+            sourceContainer = draggedElement.parentNode;
+            event.dataTransfer.setData('text/plain', draggedElement.src);
+        }
     </script>
 
 </head>
