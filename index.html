@@ -280,6 +280,11 @@
             sourceContainer = draggedElement.parentNode;
             event.dataTransfer.setData('text/plain', draggedElement.src);
         }
+
+        function handleDragEnd(event) {
+            draggedElement = null;
+            sourceContainer = null;
+        }
     </script>
 
 </head>
