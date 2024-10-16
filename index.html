@@ -266,6 +266,16 @@
                 currentTarget.appendChild(previewElement);
             }
         }
+
+        function handleDragLeave(event) {
+            event.preventDefault();
+
+            const { currentTarget } = event;
+            currentTarget.classList.remove('drag-over');
+            currentTarget.querySelector('.drag-preview')?.remove();
+        }
+
+        
     </script>
 
 </head>
