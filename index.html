@@ -285,6 +285,14 @@
             draggedElement = null;
             sourceContainer = null;
         }
+
+        resetButton.addEventListener('click', () => {
+            const items = $$('.tier .item-image');
+            items.forEach(item => {
+                item.remove();
+                itemsSection.appendChild(item);
+            });
+        });
     </script>
 
 </head>
