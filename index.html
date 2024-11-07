@@ -159,6 +159,14 @@
         const resetButton = $('#reset-tier-button');
         const saveButton = $('#save-tier-button');
 
+        const ALLOWED_IMAGE_TYPES = [
+            'image/png',
+            'image/jpeg',
+            'image/gif',
+            'image/webp',
+            'image/svg+xml'
+        ];
+
         function createItem(src) {
             const imgElement = document.createElement('img');
             imgElement.draggable = true;
@@ -175,10 +183,20 @@
         function useFilesToCreateItems(files) {
             if(files && files.length > 0) {
                 Array.from(files).forEach(file => {
+                    //Validar si el archivo es una imagen
+                    if(!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+                        console.warn(`El achivo ${file.name} no es una imagen válida`);
+                        return; //Salta este archivo y continua con el siguiente
+                    }
+
                     const reader = new FileReader();
 
                     reader.onload = (eventReader) => {
                         createItem(eventReader.target.result);
+                    }
+
+                    reader.onerror = () => {
+                        console.error(`Error al leer el archivo ${file.name}`);
                     }
 
                     reader.readAsDataURL(file);
@@ -227,7 +245,17 @@
             if(dataTransfer.types.includes('Files')) {
                 currentTarget.classList.remove('drag-files');
                 const { files } = dataTransfer;
-                useFilesToCreateItems(files);
+                /* useFilesToCreateItems(files); */
+
+                //Filtrar solo los archivos que son imagenes
+                const imageFiles = Array.from(files).filter(file => ALLOWED_IMAGE_TYPES.includes(file.type));
+
+                if(imageFiles.length === 0) {
+                    alert('Por favor, selecciona solo archivos de imagen');
+                    return;
+                }
+
+                useFilesToCreateItems(imageFiles);
             }
         }
 
